@@ -1,4 +1,5 @@
 package part1;
+
 import java.util.Arrays;
 
 public class SimpleHashSet<V> {
@@ -27,7 +28,7 @@ public class SimpleHashSet<V> {
 
         @Override
         public String toString() {
-            return "value : "+value;
+            return "value : " + value;
         }
     }
 
