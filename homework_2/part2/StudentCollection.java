@@ -22,7 +22,8 @@ public class StudentCollection {
 
     public List<Book> getBooksByStudentName(String name) {
         return studentsCollection.stream().filter((student) -> student.getName().equals(name))
-                .flatMap((student) -> ((Student) student).getBooks().stream()).collect(Collectors.toList());
+                .flatMap((student) -> ((Student) student).getBooks().stream())
+                .collect(Collectors.toList());
     }
 
     public List<Book> getAllBooks() {
@@ -31,36 +32,43 @@ public class StudentCollection {
     }
 
     public List<Book> getUniqueStudentBook(String stundetName) {
-        return studentsCollection.stream().filter((student) -> student.getName().equals(stundetName))
-                .flatMap((student) -> ((Student) student).getBooks().stream().distinct()).collect(Collectors.toList());
+        return studentsCollection.stream()
+                .filter((student) -> student.getName().equals(stundetName))
+                .flatMap((student) -> ((Student) student).getBooks().stream().distinct())
+                .collect(Collectors.toList());
     }
 
     public List<Book> getAllUniqueBooks() {
-        return  studentsCollection.stream()
-                .flatMap((student) -> student.getBooks().stream().distinct()).collect(Collectors.toList());
+        return studentsCollection.stream()
+                .flatMap((student) -> student.getBooks().stream().distinct())
+                .collect(Collectors.toList());
     }
 
     public List<Book> getSortedBooksByStudentName(String name) {
-        return  studentsCollection.stream().filter((student) -> student.getName().equals(name))
-                .flatMap((student) -> student.getBooks().stream().sorted()).collect(Collectors.toList());
+        return studentsCollection.stream().filter((student) -> student.getName().equals(name))
+                .flatMap((student) -> student.getBooks().stream().sorted())
+                .collect(Collectors.toList());
     }
 
     public List<Book> filterStudentBooksByYearEdition(String studentName, int higerThenYear) {
-        return  studentsCollection.stream().filter((student) -> student.getName().equals(studentName))
+        return studentsCollection.stream()
+                .filter((student) -> student.getName().equals(studentName))
                 .flatMap((student) -> student.getBooks().stream()
                         .filter((book) -> book.getYearEdition() > higerThenYear))
                 .collect(Collectors.toList());
     }
 
     public List<Book> getLimitStudentBooks(String studentName, int limitBook) {
-        return studentsCollection.stream().filter((student) -> student.getName().equals(studentName))
-                .flatMap((student) -> student.getBooks().stream().limit(limitBook)).collect(Collectors.toList());
+        return studentsCollection.stream()
+                .filter((student) -> student.getName().equals(studentName))
+                .flatMap((student) -> student.getBooks().stream().limit(limitBook))
+                .collect(Collectors.toList());
     }
 
     public List<Integer> getAllBooksEdition() {
-        return  studentsCollection.stream()
-                .flatMap((student) -> student.getBooks().stream().distinct()).map((book) -> book.getYearEdition())
-                .collect(Collectors.toList());
+        return studentsCollection.stream()
+                .flatMap((student) -> student.getBooks().stream().distinct())
+                .map((book) -> book.getYearEdition()).collect(Collectors.toList());
     }
 
     public void showYearOfBookByName(String bookName) {
@@ -73,7 +81,7 @@ public class StudentCollection {
 
     public int getYearOfBookByName(String name) {
         return studentsCollection.stream()
-                .flatMap((student) ->  student.getBooks().stream().distinct()
+                .flatMap((student) -> student.getBooks().stream().distinct()
                         .filter((book) -> book.getBookName().equals(name)))
                 .map((book) -> book.getYearEdition()).distinct().findFirst().orElse(-1);
     }

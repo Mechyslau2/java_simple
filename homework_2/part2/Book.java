@@ -43,7 +43,8 @@ public class Book implements Comparable<Book> {
             return false;
         }
         Book other = (Book) obj;
-        return Objects.equals(getBookName(), other.getBookName()) && Objects.equals(getAuthor(), other.getAuthor())
+        return Objects.equals(getBookName(), other.getBookName())
+                && Objects.equals(getAuthor(), other.getAuthor())
                 && Objects.equals(getAmountPages(), other.getAmountPages())
                 && Objects.equals(getYearEdition(), other.getYearEdition());
     }
@@ -63,7 +64,7 @@ public class Book implements Comparable<Book> {
 
     @Override
     public String toString() {
-        return "{ bookName : " + bookName + ", author : " + author + ", amountPages : " + amountPages
-                + ", yearEdition : " + yearEdition + "}\n";
+        return "{ bookName : " + bookName + ", author : " + author + ", amountPages : "
+                + amountPages + ", yearEdition : " + yearEdition + "}\n";
     }
 }
