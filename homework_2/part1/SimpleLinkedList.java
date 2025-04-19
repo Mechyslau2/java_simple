@@ -1,7 +1,5 @@
 package part1;
 
-import java.util.Collection;
-
 public class SimpleLinkedList<V> {
     private Node<V> head;
     private Node<V> tail;
@@ -119,7 +117,7 @@ public class SimpleLinkedList<V> {
             Node<V> current = head;
             Node<V> prev;
             while (current != null) {
-                if (current.value == value) {
+                if (current.value == value || value != null && value.equals(current.value)) {
                     if (current == tail && tail.prev != null) {
                         tail = tail.prev;
                     }

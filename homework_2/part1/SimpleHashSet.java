@@ -69,7 +69,7 @@ public class SimpleHashSet<V> {
             V val;
             if (temp[index] != null) {
                 for (int i = 0;; i++) {
-                    if ((val = current.value) == value || value != null && val.equals(value)) {
+                    if ((val = current.value) == value || val.equals(value)) {
                         break;
                     }
                     if (current.next == null) {
@@ -91,6 +91,9 @@ public class SimpleHashSet<V> {
     }
 
     private int findIndexByValue(V value) {
+        if (value == null) {
+            return -1;
+        } 
         int len, index;
         if (buckets != null && (len = buckets.length) >= 0) {
             if (buckets[index = (len - 1 & getHash(value))] != null) {
