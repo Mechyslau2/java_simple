@@ -1,5 +1,7 @@
 package part1;
 
+import java.util.Collection;
+
 public class SimpleLinkedList<V> {
     private Node<V> head;
     private Node<V> tail;
@@ -21,7 +23,10 @@ public class SimpleLinkedList<V> {
         }
     }
 
-    public void add(V value) {
+    public boolean add(V value) {
+        if (value == null) {
+            return false;
+        }
         final Node<V> last = tail;
         Node<V> item = new Node<V>(value, last, null);
         if (head == null) {
@@ -31,13 +36,17 @@ public class SimpleLinkedList<V> {
             tail = item;
         }
         ++size;
+        return true;
     }
 
-    public void setLast(V value) {
-        add(value);
+    public boolean setLast(V value) {
+        return add(value);
     }
 
-    public void setFirst(V value) {
+    public boolean setFirst(V value) {
+        if (value == null) {
+            return false;
+        }
         Node<V> first = head;
         Node<V> item = new Node<V>(value, null, null);
         head = item;
@@ -45,6 +54,7 @@ public class SimpleLinkedList<V> {
             head.next = first;
         }
         ++size;
+        return true;
     }
 
     private Node<V> getFirstNode() {
@@ -72,7 +82,7 @@ public class SimpleLinkedList<V> {
     public V get(int index) {
         if (index >= 0 && index <= size && size > 0) {
             Node<V> current;
-            int sizeDirection = size == 0 ? 0 : (size % 2 == 0 ? size / 2 : size + 1 / 2);
+            int sizeDirection = size == 0 ? 0 : (size % 2 == 0 ? size / 2 : (size + 1) / 2);
             current = index == 0 ? getFirstNode() : (index == size ? getLastNode() : null);
             if (current != null) {
                 return current.value;
@@ -110,9 +120,13 @@ public class SimpleLinkedList<V> {
             Node<V> prev;
             while (current != null) {
                 if (current.value == value) {
+                    if (current == tail && tail.prev != null) {
+                        tail = tail.prev;
+                    }
                     if (current.prev != null) {
                         prev = current.prev;
                         prev.next = current.next;
+                        current = null;
                     } else {
                         head = head.next;
                     }
@@ -125,10 +139,15 @@ public class SimpleLinkedList<V> {
         return false;
     }
 
-    public void addAll(V... args) {
-        for (V value : args) {
-            add(value);
+    public boolean addAll(V[] items) {
+        boolean added = false;
+        if (items == null) {
+            return added;
         }
+        for (V value : items) {
+           added = add(value);
+        }
+        return added;
     }
 
     public void showLinkedlistValues() {
