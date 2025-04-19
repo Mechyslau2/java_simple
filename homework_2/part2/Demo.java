@@ -28,7 +28,7 @@ public class Demo {
                 .addBook("book 44", "author 44", 2001, 460)
                 .addBook("book 5", "author 5", 2003, 466);
 
-        StudentCollection<Student> studentsApi = new StudentCollection<>();
+        StudentCollection studentsApi = new StudentCollection();
 
         studentsApi.add(student1).add(student2).add(student3);
         System.out.println("All students : ");
