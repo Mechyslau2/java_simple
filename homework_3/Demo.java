@@ -5,11 +5,11 @@ public class Demo {
         SimpleReaderAndWriter simpleReaderAndWriter = new SimpleReaderAndWriter();
         try {
             simpleReaderAndWriter.createFile("test.txt");
-            simpleReaderAndWriter.write("test");
+            simpleReaderAndWriter.rewriteFileContent("test");
             simpleReaderAndWriter.readAndPrint();
             simpleReaderAndWriter.append("new message");
             simpleReaderAndWriter.readAndPrint();
-            simpleReaderAndWriter.write("test 2");
+            simpleReaderAndWriter.rewriteFileContent("test 2");
             simpleReaderAndWriter.readAndPrint();
             simpleReaderAndWriter.appendWithConsole();
         } catch (FileException ex) {

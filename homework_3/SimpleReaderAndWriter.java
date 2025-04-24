@@ -1,12 +1,14 @@
 package homework_3;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 
 public class SimpleReaderAndWriter {
 
@@ -46,11 +48,11 @@ public class SimpleReaderAndWriter {
             throw new FileException(message);
         }
     }
-     
+
     private void checkIsFileExists(File file) {
-       if (!file.exists()) {
+        if (!file.exists()) {
             throw new FileException(FILE_NOT_EXISTS);
-       } 
+        }
     }
 
     public SimpleReaderAndWriter() {}
@@ -82,12 +84,13 @@ public class SimpleReaderAndWriter {
     public void readAndPrint() throws FileException {
         checkElIsNull(file, FILE_NOT_CREATED);
         checkIsFileExists(file);
-        try (FileReader fileReader = new FileReader(file.getName())) {
+        try (BufferedReader bufferedReader =
+                new BufferedReader(new FileReader(file.getName(), StandardCharsets.UTF_8))) {
             if (file.length() == 0) {
                 System.out.println(file.getName() + EMPTY_FILE);
             }
             int symbol;
-            while ((symbol = fileReader.read()) != -1) {
+            while ((symbol = bufferedReader.read()) != -1) {
                 System.out.print((char) symbol);
             }
             System.out.println("");
@@ -98,13 +101,13 @@ public class SimpleReaderAndWriter {
         }
     }
 
-    public void write(String message) throws FileException {
+    public void rewriteFileContent(String message) throws FileException {
         checkElIsNull(file, FILE_NOT_CREATED + " or " + INVALID_PATH);
         checkIsFileExists(file);
-        try (FileWriter fileWriter = new FileWriter(file.getName())) {
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file.getName()))) {
             char[] chars = new char[message.length()];
             message.getChars(0, message.length(), chars, 0);
-            fileWriter.write(chars);
+            bufferedWriter.write(chars);
 
         } catch (FileNotFoundException | NullPointerException ex) {
             throw new FileException(FILE_NOT_FOUND, ex);
@@ -116,8 +119,9 @@ public class SimpleReaderAndWriter {
     public void append(String message) throws FileException {
         checkElIsNull(file, FILE_NOT_CREATED + " or " + MESSAGE_IS_NULL);
         checkIsFileExists(file);
-        try (FileWriter fileWriter = new FileWriter(file.getName(), true)) {
-            fileWriter.append("\n" + message);
+        try (BufferedWriter bufferedWriter =
+                new BufferedWriter(new FileWriter(file.getName(), true))) {
+            bufferedWriter.append("\n" + message);
         } catch (FileNotFoundException | NullPointerException ex) {
             throw new FileException(FILE_NOT_FOUND, ex);
         } catch (IOException ex) {
@@ -129,15 +133,16 @@ public class SimpleReaderAndWriter {
     public void appendWithConsole() throws FileException {
         checkElIsNull(file, FILE_NOT_CREATED);
         checkIsFileExists(file);
-        try (BufferedReader buffer =
-                new BufferedReader(new InputStreamReader(System.in, System.console().charset()));
-                FileWriter fileWriter = new FileWriter(file.getName(), true)) {
+        try (BufferedReader bufferReader =
+                new BufferedReader(new InputStreamReader(System.in, StandardCharsets.UTF_8));
+                BufferedWriter bufferWriter =
+                        new BufferedWriter(new FileWriter(file.getName(), true))) {
             System.out.println(MESSAGE_TO_EXIT);
             String item;
             do {
-                item = buffer.readLine();
+                item = bufferReader.readLine();
                 if (!item.equals(EXIT_KEY)) {
-                    fileWriter.append("\n" + item);
+                    bufferWriter.append("\n" + item);
                 }
 
             } while (!item.equals(EXIT_KEY));
