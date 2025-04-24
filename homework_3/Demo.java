@@ -4,7 +4,7 @@ public class Demo {
     public static void main(String[] args) throws FileException {
         SimpleReaderAndWriter simpleReaderAndWriter = new SimpleReaderAndWriter();
         try {
-            simpleReaderAndWriter.createFile("test");
+            simpleReaderAndWriter.createFile("test.txt");
             simpleReaderAndWriter.write("test");
             simpleReaderAndWriter.readAndPrint();
             simpleReaderAndWriter.append("new message");

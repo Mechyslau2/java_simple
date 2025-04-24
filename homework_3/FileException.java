@@ -1,8 +1,6 @@
 package homework_3;
 
-import java.io.IOException;
-
-public class FileException extends IOException {
+public class FileException extends RuntimeException {
     private int errorCode;
 
     public FileException() {

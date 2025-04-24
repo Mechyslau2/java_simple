@@ -63,7 +63,7 @@ public class SimpleReaderAndWriter {
             if (symbol == -1) {
                 System.out.println("");
             }
-        } catch (FileNotFoundException ex) {
+        } catch (FileNotFoundException | NullPointerException ex) {
             throw new FileException(ErrorMessage.FILE_NOT_FOUND.getErrorMessage(), ex);
         } catch (IOException ex) {
             throw new FileException(ErrorMessage.READ_ERROR_MESSAGE.getErrorMessage(), ex);
@@ -80,7 +80,8 @@ public class SimpleReaderAndWriter {
             message.getChars(0, message.length(), chars, 0);
             fileReader.write(chars);
 
-        } catch (FileNotFoundException ex) {
+        } 
+        catch (FileNotFoundException | NullPointerException ex) {
             throw new FileException(ErrorMessage.FILE_NOT_FOUND.getErrorMessage(), ex);
         } catch (IOException ex) {
             throw new FileException(ErrorMessage.WRITE_ERROR_MESSAGE.getErrorMessage(), ex);
@@ -94,7 +95,7 @@ public class SimpleReaderAndWriter {
         }
         try (FileWriter fileWriter = new FileWriter(file.getName(), true)) {
             fileWriter.append("\n" + message);
-        } catch (FileNotFoundException ex) {
+        } catch (FileNotFoundException | NullPointerException ex) {
             throw new FileException(ErrorMessage.FILE_NOT_FOUND.getErrorMessage(), ex);
         } catch (IOException ex) {
             throw new FileException(ErrorMessage.WRITE_ERROR_MESSAGE.getErrorMessage(), ex);
