@@ -10,8 +10,8 @@ public enum ErrorMessage {
     STREAM_WRITE_READ("Error during read/write"), 
     INVALID_PATH("invalid path"), 
     IS_NOT_FILE("is not a file"), 
-    INVALID_FILE_NAME("invalid fileName");
-    
+    INVALID_FILE_NAME("invalid fileName"),
+    FILE_NOT_EXISTS("File doesn't exist");
     private String message;
 
     ErrorMessage(String message) {
