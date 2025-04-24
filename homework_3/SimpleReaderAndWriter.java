@@ -49,11 +49,40 @@ public class SimpleReaderAndWriter {
         }
     }
 
-    private void checkIsFileExists(File file) {
+    private void checkIsFileExists() {
         if (!file.exists()) {
             throw new FileException(FILE_NOT_EXISTS);
         }
     }
+
+    private FileReader createFileReader() throws FileException {
+        checkIsFileExists();
+        try {
+            return new FileReader(file.getName(), StandardCharsets.UTF_8);
+        } catch (IOException ex) {
+            throw new FileException(ex);
+        }
+
+    }
+
+    private FileWriter createFileWriter() throws FileException {
+        checkIsFileExists();
+        try {
+            return new FileWriter(file.getName(), StandardCharsets.UTF_8);
+        } catch (IOException ex) {
+            throw new FileException(ex);
+        }
+    }
+
+    private FileWriter createFileWriterWithAppend() throws FileException {
+        checkIsFileExists();
+        try {
+            return new FileWriter(file.getName(), StandardCharsets.UTF_8, true);
+        } catch (IOException ex) {
+            throw new FileException(ex);
+        }
+    }
+
 
     public SimpleReaderAndWriter() {}
 
@@ -83,9 +112,7 @@ public class SimpleReaderAndWriter {
 
     public void readAndPrint() throws FileException {
         checkElIsNull(file, FILE_NOT_CREATED);
-        checkIsFileExists(file);
-        try (BufferedReader bufferedReader =
-                new BufferedReader(new FileReader(file.getName(), StandardCharsets.UTF_8))) {
+        try (BufferedReader bufferedReader = new BufferedReader(createFileReader())) {
             if (file.length() == 0) {
                 System.out.println(file.getName() + EMPTY_FILE);
             }
@@ -103,8 +130,7 @@ public class SimpleReaderAndWriter {
 
     public void rewriteFileContent(String message) throws FileException {
         checkElIsNull(file, FILE_NOT_CREATED + " or " + INVALID_PATH);
-        checkIsFileExists(file);
-        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file.getName(), StandardCharsets.UTF_8))) {
+        try (BufferedWriter bufferedWriter = new BufferedWriter(createFileWriter())) {
             char[] chars = new char[message.length()];
             message.getChars(0, message.length(), chars, 0);
             bufferedWriter.write(message);
@@ -118,9 +144,7 @@ public class SimpleReaderAndWriter {
 
     public void append(String message) throws FileException {
         checkElIsNull(file, FILE_NOT_CREATED + " or " + MESSAGE_IS_NULL);
-        checkIsFileExists(file);
-        try (BufferedWriter bufferedWriter =
-                new BufferedWriter(new FileWriter(file.getName(), StandardCharsets.UTF_8, true))) {
+        try (BufferedWriter bufferedWriter = new BufferedWriter(createFileWriterWithAppend())) {
             bufferedWriter.append("\n" + message);
         } catch (FileNotFoundException | NullPointerException ex) {
             throw new FileException(FILE_NOT_FOUND, ex);
@@ -132,11 +156,9 @@ public class SimpleReaderAndWriter {
 
     public void appendWithConsole() throws FileException {
         checkElIsNull(file, FILE_NOT_CREATED);
-        checkIsFileExists(file);
         try (BufferedReader bufferReader =
                 new BufferedReader(new InputStreamReader(System.in, System.console().charset()));
-                BufferedWriter bufferWriter =
-                        new BufferedWriter(new FileWriter(file.getName(), StandardCharsets.UTF_8, true))) {
+                BufferedWriter bufferWriter = new BufferedWriter(createFileWriterWithAppend())) {
             System.out.println(MESSAGE_TO_EXIT);
             String item;
             do {
