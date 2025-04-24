@@ -5,10 +5,11 @@ public class Demo {
         SimpleReaderAndWriter simpleReaderAndWriter = new SimpleReaderAndWriter();
         try {
             simpleReaderAndWriter.createFile("test.txt");
-            simpleReaderAndWriter.rewriteFileContent("test");
+            simpleReaderAndWriter.rewriteFileContent("стоп");
             simpleReaderAndWriter.readAndPrint();
-            simpleReaderAndWriter.append("new message");
+            simpleReaderAndWriter.append("лоб");
             simpleReaderAndWriter.readAndPrint();
+            simpleReaderAndWriter.append("cat");
             simpleReaderAndWriter.rewriteFileContent("test 2");
             simpleReaderAndWriter.readAndPrint();
             simpleReaderAndWriter.appendWithConsole();

@@ -104,10 +104,10 @@ public class SimpleReaderAndWriter {
     public void rewriteFileContent(String message) throws FileException {
         checkElIsNull(file, FILE_NOT_CREATED + " or " + INVALID_PATH);
         checkIsFileExists(file);
-        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file.getName()))) {
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file.getName(), StandardCharsets.UTF_8))) {
             char[] chars = new char[message.length()];
             message.getChars(0, message.length(), chars, 0);
-            bufferedWriter.write(chars);
+            bufferedWriter.write(message);
 
         } catch (FileNotFoundException | NullPointerException ex) {
             throw new FileException(FILE_NOT_FOUND, ex);
@@ -120,7 +120,7 @@ public class SimpleReaderAndWriter {
         checkElIsNull(file, FILE_NOT_CREATED + " or " + MESSAGE_IS_NULL);
         checkIsFileExists(file);
         try (BufferedWriter bufferedWriter =
-                new BufferedWriter(new FileWriter(file.getName(), true))) {
+                new BufferedWriter(new FileWriter(file.getName(), StandardCharsets.UTF_8, true))) {
             bufferedWriter.append("\n" + message);
         } catch (FileNotFoundException | NullPointerException ex) {
             throw new FileException(FILE_NOT_FOUND, ex);
@@ -134,9 +134,9 @@ public class SimpleReaderAndWriter {
         checkElIsNull(file, FILE_NOT_CREATED);
         checkIsFileExists(file);
         try (BufferedReader bufferReader =
-                new BufferedReader(new InputStreamReader(System.in, StandardCharsets.UTF_8));
+                new BufferedReader(new InputStreamReader(System.in, System.console().charset()));
                 BufferedWriter bufferWriter =
-                        new BufferedWriter(new FileWriter(file.getName(), true))) {
+                        new BufferedWriter(new FileWriter(file.getName(), StandardCharsets.UTF_8, true))) {
             System.out.println(MESSAGE_TO_EXIT);
             String item;
             do {
