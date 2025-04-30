@@ -4,13 +4,10 @@ public class DeadLockDemo {
     public static void main(String[] args) {
         TestResource source1 = new TestResource();
         TestResource source2 = new TestResource();
-        new Thread(() -> {
-            source1.addCountFrom(source2);
-        }).start();
+        MySourceThread thread1 = new MySourceThread(source1, source2);
+        MySourceThread thread2 = new MySourceThread(source2, source1);
 
-        new Thread(() -> {
-            source2.addCountFrom(source1);
-
-        }).start();
+        new Thread(thread1).start();
+        new Thread(thread2).start();
     }
 }
