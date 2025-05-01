@@ -1,4 +1,4 @@
-package homework_4.part_1.liveLock;
+package homework_4.part_1.liveLock.exmp1;
 
 public class CommonSource {
     private boolean isUsing = false;
