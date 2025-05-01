@@ -1,4 +1,4 @@
-package homework_4.part_1.liveLock.exmp1;
+package homework_4.part_1.liveLock;
 
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantLock;

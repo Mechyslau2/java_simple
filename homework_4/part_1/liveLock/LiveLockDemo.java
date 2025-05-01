@@ -1,4 +1,4 @@
-package homework_4.part_1.liveLock.exmp1;
+package homework_4.part_1.liveLock;
 
 public class LiveLockDemo {
     public static void main(String[] args) {

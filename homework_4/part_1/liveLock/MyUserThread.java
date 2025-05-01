@@ -1,4 +1,4 @@
-package homework_4.part_1.liveLock.exmp1;
+package homework_4.part_1.liveLock;
 
 public class MyUserThread implements Runnable {
     private User user;
