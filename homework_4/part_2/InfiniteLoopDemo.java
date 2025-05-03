@@ -6,9 +6,8 @@ import java.util.concurrent.TimeUnit;
 
 public class InfiniteLoopDemo {
     public static void main(String[] args) {
-        Provider provider = new Provider();
-        SimpleThread thread1 = new SimpleThread(1, provider);
-        SimpleThread thread2 = new SimpleThread(2, provider);
+        SimpleTask thread1 = new SimpleTask(1);
+        SimpleTask thread2 = new SimpleTask(2);
         ScheduledExecutorService threadsServise  = Executors.newScheduledThreadPool(2);
 
         threadsServise.scheduleWithFixedDelay(thread1, 0, 2, TimeUnit.SECONDS);
